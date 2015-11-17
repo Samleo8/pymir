@@ -19,8 +19,7 @@ def _getSingleDeltas(feature, winsize=2):
     # print " input : ", feature[:1]
     # Calculates the denominator: 2* \sum_n^N n*n
     ret = np.empty(feature.shape, dtype=float)
-    denom = 2 * sum(x**2 for x in xrange(1, winsize + 1))
-
+    denom = 2. * sum(x**2 for x in xrange(1, winsize + 1))
     # iterate over all frames
     for frameindex in xrange(len(feature)):
         # We calculate the difference in between two frames
