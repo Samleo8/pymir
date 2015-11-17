@@ -96,4 +96,4 @@ def lsp(lpcseq,rectify=True):
         return sorted(i for i in lsf_q + lsf_p if (i > 0))[:-1]
     else:
         # Remove the -Pi and +pi at the beginning and end in the list
-        return sorted(i for i in lsf_q + lsf_p)
+        return sorted(i for i in lsf_q + lsf_p)[1:-1]
