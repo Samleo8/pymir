@@ -3,7 +3,7 @@ import numpy as np
 
 def getDeltas(seq, derivative=2, winsize=2):
     # First stack the static features
-    ret = [seq]
+    ret = seq[:]
     for i in xrange(derivative):
         seq = _getSingleDeltas(seq)
         ret.extend(seq)
@@ -40,5 +40,5 @@ def _getSingleDeltas(feature, winsize=2):
             if frameindex - k >= 0:
                 bwd = feature[frameindex - k]
             innersum += k * (fwd - bwd)
-        ret[frameindex] = innersum / denom
+        ret.append(innersum / denom)
     return ret
