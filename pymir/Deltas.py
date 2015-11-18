@@ -6,8 +6,8 @@ def getDeltas(seq, derivative=2, winsize=2):
     ret = [seq]
     for i in xrange(derivative):
         seq = _getSingleDeltas(seq)
-        ret.append(seq)
-    return np.hstack(ret)
+        ret.extend(seq)
+    return ret
 
 
 def _getSingleDeltas(feature, winsize=2):
@@ -15,10 +15,8 @@ def _getSingleDeltas(feature, winsize=2):
     Calculates a single pass deltas for the given feature
     returns the calculated feature stacked upon the given feature
     '''
-    feature = np.array(feature)
-    # print " input : ", feature[:1]
+    ret = []
     # Calculates the denominator: 2* \sum_n^N n*n
-    ret = np.empty(feature.shape, dtype=float)
     denom = 2. * sum(x**2 for x in xrange(1, winsize + 1))
     # iterate over all frames
     for frameindex in xrange(len(feature)):
