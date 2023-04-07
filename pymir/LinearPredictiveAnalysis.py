@@ -39,16 +39,20 @@ def lpcc(seq, err_term, order=None):
         @param (order) default=None: Return size of the array. Function returns order+1 length array. Default is len(seq)
     Returns: List with lpcc components with default length len(seq), otherwise length order +1
     '''
+    N = len(seq)
     if order is None:
-        order = len(seq) - 1
+        order = N - 1
     lpcc_coeffs = [np.log(err_term), -seq[0]]
-    for n in xrange(2, order + 1):
+    for n in range(2, order + 1):
         # Use order + 1 as upper bound for the last iteration
-        upbound = (order + 1 if n > order else n)
+        upbound = (order + 1) if n > order else n
+        
+        # TODO: Change to numpy as this seems inefficient
         lpcc_coef = -sum(i * lpcc_coeffs[i] * seq[n - i - 1]
-                         for i in xrange(1, upbound)) * 1. / upbound
-        lpcc_coef -= seq[n - 1] if n <= len(seq) else 0
+                         for i in range(1, upbound)) * 1. / upbound
+        lpcc_coef -= seq[n - 1] if n <= N else 0
         lpcc_coeffs.append(lpcc_coef)
+
     return lpcc_coeffs
 
 def lsp(lpcseq,rectify=True):
